@@ -156,8 +156,8 @@ for nt = 1:1e7
     BC = BC+BC.';
     QBC = spdiags(sum(BC,2),0,-BC);
     QBC = [QBC(1:p-1,1:p-1),sparse(p-1,1);sparse(1,p-1),1];
-    [~,q] = chol(QBC);
-    if q >0 
+    q = condest(QBC);
+    if q > 1e6 || isnan(q)
         continue;
     end
     
